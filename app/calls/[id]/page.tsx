@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Phone, Mic, User, Bot } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { Phone, User, Bot } from "lucide-react";
 
 
 export default function LiveCallPage() {
 
   const [seconds, setSeconds] = useState(0);
+
+  const params = useParams();
+  const router = useRouter();
+
+  const callId = params.id;
+
 
 
   useEffect(() => {
@@ -32,6 +39,49 @@ export default function LiveCallPage() {
 
 
 
+  async function endCall() {
+
+    try {
+
+      await fetch(`/api/calls/${callId}`, {
+
+        method: "PATCH",
+
+        headers: {
+
+          "Content-Type": "application/json",
+
+        },
+
+
+        body: JSON.stringify({
+
+          status: "Completed",
+
+          duration: time,
+
+        }),
+
+      });
+
+
+
+      router.push("/dashboard");
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Failed to end call");
+
+    }
+
+  }
+
+
+
+
   return (
 
     <div className="space-y-8">
@@ -42,6 +92,7 @@ export default function LiveCallPage() {
         <h1 className="text-3xl font-bold">
           Live AI Call 🎙️
         </h1>
+
 
         <p className="mt-2 text-gray-500">
           Real-time conversation with your AI agent.
@@ -84,7 +135,6 @@ export default function LiveCallPage() {
 
 
         </div>
-
 
 
       </div>
@@ -135,6 +185,7 @@ export default function LiveCallPage() {
 
 
 
+
           <div className="flex gap-3">
 
             <Bot />
@@ -158,9 +209,15 @@ export default function LiveCallPage() {
 
 
 
-      <button className="rounded-xl bg-red-600 px-8 py-3 text-white">
+      <button
 
-        End Call
+        onClick={endCall}
+
+        className="rounded-xl bg-red-600 px-8 py-3 text-white"
+
+      >
+
+        🔴 End Call
 
       </button>
 
