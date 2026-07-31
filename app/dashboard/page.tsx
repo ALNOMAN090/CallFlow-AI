@@ -1,4 +1,8 @@
 import StatCard from "@/components/dashboard/StatCard";
+import ActivityChart from "@/components/dashboard/ActivityChart";
+import RecentCalls from "@/components/dashboard/RecentCalls";
+import AgentsList from "@/components/dashboard/AgentsList";
+
 import {
   Phone,
   Bot,
@@ -9,17 +13,22 @@ import {
 export default function DashboardPage() {
   return (
     <div className="space-y-8">
+
+      {/* Dashboard Header */}
       <div>
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-slate-900">
           Welcome back 👋
         </h1>
 
-        <p className="text-gray-500">
-          Here's what's happening with your AI phone agents today.
+        <p className="mt-2 text-slate-500">
+          Manage your AI phone agents and monitor your calls.
         </p>
       </div>
 
+
+      {/* Statistics Cards */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
         <StatCard
           title="Total Calls"
           value="1,248"
@@ -37,17 +46,31 @@ export default function DashboardPage() {
         <StatCard
           title="Success Rate"
           value="96%"
-          description="Excellent"
+          description="Excellent performance"
           icon={CheckCircle}
         />
 
         <StatCard
           title="Hours Saved"
           value="184h"
-          description="Automation"
+          description="Automation impact"
           icon={Clock}
         />
+
       </div>
+
+
+      {/* Weekly Activity Chart */}
+      <ActivityChart />
+
+
+      {/* Recent Calls */}
+      <RecentCalls />
+
+
+      {/* AI Agents */}
+      <AgentsList />
+
     </div>
   );
 }
