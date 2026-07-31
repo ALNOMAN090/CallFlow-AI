@@ -24,11 +24,9 @@ export default function AgentDetailsPage() {
   };
 
 
-
   async function startCall() {
 
     setCalling(true);
-
 
     try {
 
@@ -40,28 +38,20 @@ export default function AgentDetailsPage() {
           "Content-Type": "application/json",
         },
 
-
         body: JSON.stringify({
-
           agentId: 1,
-
           customer: "Ahmed Hassan",
-
         }),
 
       });
 
 
-
       const data = await response.json();
-
 
 
       if (data.success) {
 
-        alert(
-          `Call Started!\nStatus: ${data.call.status}`
-        );
+        window.location.href = `/calls/${data.call.id}`;
 
       }
 
@@ -93,7 +83,6 @@ export default function AgentDetailsPage() {
         <h1 className="text-3xl font-bold">
           {agent.name} 🤖
         </h1>
-
 
         <p className="mt-2 text-gray-500">
           Manage and monitor your AI phone agent.
